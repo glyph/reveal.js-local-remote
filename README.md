@@ -10,7 +10,7 @@ The way I do my presentations is just to edit index.html in a checkout of the re
 
 Assuming you do the same thing, you can get set up like this:
 
-```shell
+```bash
 $ cd reveal.js
 $ git clone https://github.com/sockjs/sockjs-client -b v0.3.4
 $ git clone https://github.com/glyph/reveal.js-local-remote plugin/local-remote
@@ -27,7 +27,7 @@ to your dependencies list in your call to `Reveal.initialize`.
 
 Finally, set up your virtualenv however you like, then:
 
-```shell
+```bash
 $ pip install -r requirements.txt
 $ twistd -n web --path . --port 8080
 ```
