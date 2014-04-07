@@ -43,38 +43,45 @@
                 } else {
                     notesText = notes.innerHTML;
                 }
-                var notesCommand = JSON.stringify(
-                    {command: "NOTES",
-                     notes: notesText}
-                );
-                sock.send(notesCommand + "\r\n");
+                sendMessage({command: "NOTES", notes: notesText});
+            }
+            var sendMessage = function(obj) {
+                sock.send(JSON.stringify(obj) + "\r\n");
             }
             Reveal.addEventListener('slidechanged', propagateNotes);
             sock.onmessage = function (e) {
                 var message = JSON.parse(e.data);
                 switch (message.command) {
                     case "LEFT":
+                        sendMessage({command: "ACK"});
                         Reveal.left();
                         break;
                     case "RIGHT":
+                        sendMessage({command: "ACK"});
                         Reveal.right();
                         break;
                     case "UP":
+                        sendMessage({command: "ACK"});
                         Reveal.up();
                         break;
                     case "DOWN":
+                        sendMessage({command: "ACK"});
                         Reveal.down();
                         break;
                     case "NEXT":
+                        sendMessage({command: "ACK"});
                         Reveal.next();
                         break;
                     case "PAUSE":
+                        sendMessage({command: "ACK"});
                         Reveal.togglePause();
                         break;
                     case "PREV":
+                        sendMessage({command: "ACK"});
                         Reveal.prev();
                         break;
                     case "START":
+                        sendMessage({command: "ACK"});
                         propagateNotes();
                         break;
                 }
