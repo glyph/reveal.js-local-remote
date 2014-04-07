@@ -12,12 +12,14 @@ Assuming you do the same thing, you can get set up like this:
 
 ```
 $ cd reveal.js
+$ git clone https://github.com/sockjs/sockjs-client -b v0.3.4
 $ git clone https://github.com/glyph/reveal.js-local-remote plugin/local-remote
 ```
 
 Then add this:
 
 ```
+{ src: 'sockjs-client/sockjs.js', async: true },
 { src: 'plugin/local-remote/local-remote.js', async: true }
 ```
 
