@@ -32,4 +32,15 @@ $ pip install -r requirements.txt
 $ twistd -n web --path . --port 8080
 ```
 
-Connect to http://your-laptop.local:8080/plugin/local-remote/ from your iOS device and http://localhost:8080/ from your presentation browser.  Oh and for goodness sake *remember to press `f` on your presentation browser*, there is nothing more annoying than staring at the browser chrome at the top of the screen for an entire talk.
+## Touch control view
+Connect to http://your-laptop.local:8080/plugin/local-remote/ from your iOS device and http://localhost:8080/ from your presentation browser.
+
+In this view, taps trigger the next slide and swipes translate to left/right/up/down.
+
+## Button view
+Connect to http://your-laptop.local:8080/plugin/local-remote/buttons.html from your iOS device and http://localhost:8080/ from your presentation browser.
+
+Touch control does not work in this view, but at the top of the page there are previous and next buttons.  When first connecting to the view, there is only a start button, which when pressed will begin the speaker note sync and display the previous/next buttons.
+
+## Advice
+Oh and for goodness sake *remember to press `f` on your presentation browser*, there is nothing more annoying than staring at the browser chrome at the top of the screen for an entire talk.
