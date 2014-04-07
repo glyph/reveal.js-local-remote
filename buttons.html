@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Local Remote</title>
+        <script src="/sockjs-client/sockjs.js"></script>
+        <script src="client.js"></script>
+        <meta name="viewport"
+              content="width=device-width,
+                       height=device-height,
+                       user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="apple-touch-icon" href="icon.png" />
+        <style>
+            body {
+                background-color: black;
+                color: white;
+                font-family: "Menlo";
+                font-size: 36pt;
+            }
+            div .container {
+                overflow: hidden;
+            }
+            div .controls {
+            }
+            div .prev {
+                float: left;
+            }
+            div .next, div .start {
+                float: right;
+            }
+            div .prev, div .next, div.start {
+                background-color: #003399;
+                border-radius:15px;
+                -moz-border-radius: 15px;
+                -webkit-border-radius: 15px;
+                border: 2px solid #000033;
+                padding: 5px 10px;
+            }
+            div .notes {
+                clear: both;
+                overflow-y: auto;
+                position: absolute;
+                top: 2em;
+                left: 5px;
+                right: 5px;
+                bottom: 1em;
+            }
+
+            div .hidden {
+                display: none;
+            }
+        </style>
+        <script>
+            window.onload = function() {
+                document.getElementById("prev").onclick = function() {
+                    LocalRemote.broadcastObject({command: "PREV"});
+                };
+
+                document.getElementById("next").onclick = function() {
+                    LocalRemote.broadcastObject({command: "NEXT"});
+                };
+
+                document.getElementById("start").onclick = function() {
+                    document.getElementById("prev").className = "prev";
+                    document.getElementById("next").className = "next";
+                    document.getElementById("start").className = "hidden";
+                    LocalRemote.broadcastObject({command: "START"});
+                }
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="controls">
+                <div class="prev hidden" id="prev">PREV</div>
+                <div class="next hidden" id="next">NEXT</div>
+                <div class="start" id="start">START</div>
+            </div>
+            <div class="notes" id="notes">
+                Remote.
+            </div>
+        </div>
+    </body>
+</html>
