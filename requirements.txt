@@ -1,0 +1,10 @@
+Twisted==13.2.0
+cffi==0.8.2
+cryptography==0.3
+pyOpenSSL==0.14
+pycparser==2.10
+pycrypto==2.6.1
+pyflakes==0.8.1
+six==1.6.1
+txsockjs==1.2.1
+zope.interface==4.1.1
