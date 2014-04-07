@@ -31,4 +31,4 @@ Finally, make sure you've got txsockjs installed and then:
 twistd -n web --path . --port 8080
 ```
 
-Connect to http://your-laptop.local:8080/plugin/local-remote/ from your iOS device and http://localhost:8080/ from your presentation browser.
+Connect to http://your-laptop.local:8080/plugin/local-remote/ from your iOS device and http://localhost:8080/ from your presentation browser.  Oh and for goodness sake *remember to press `f` on your presentation browser*, there is nothing more annoying than staring at the browser chrome at the top of the screen for an entire talk.
