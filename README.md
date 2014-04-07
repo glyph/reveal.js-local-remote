@@ -13,6 +13,7 @@ Assuming you do the same thing, you can get set up like this:
 ```bash
 $ cd reveal.js
 $ git clone https://github.com/sockjs/sockjs-client -b v0.3.4
+$ cd socksjs-client; npm install; make; cd ..
 $ git clone https://github.com/glyph/reveal.js-local-remote plugin/local-remote
 ```
 
@@ -28,7 +29,7 @@ to your dependencies list in your call to `Reveal.initialize`.
 Finally, set up your virtualenv however you like, then:
 
 ```bash
-$ pip install -r requirements.txt
+$ pip install -r plugin/local-remote/requirements.txt
 $ twistd -n web --path . --port 8080
 ```
 
