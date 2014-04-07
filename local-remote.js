@@ -6,7 +6,7 @@
 (function(window){
     /**
      * Detects if we are dealing with a touch enabled device (with some false positives)
-     * Borrowed from modernizr: https://github.com/Modernizr/Modernizr/blob/master/feature-detects/touch.js   
+     * Borrowed from modernizr: https://github.com/Modernizr/Modernizr/blob/master/feature-detects/touch.js
      */
     var hasTouch  = (function(){
         return ('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch;
@@ -28,8 +28,14 @@
             sock.onopen = function () {
                 console.log("Opened.");
             };
-            Reveal.addEventListener('slidechanged', function (event) {
-                var notes = event.currentSlide.querySelector(".notes");
+            var propagateNotes = function(event) {
+                var notes;
+                if (event) {
+                  notes = event.currentSlide.querySelector(".notes");
+                } else {
+                  notes = Reveal.getCurrentSlide().querySelector(".notes");
+                }
+
                 var notesText;
                 if (notes === null) {
                     console.log("No notes for this slide.");
@@ -42,7 +48,8 @@
                      notes: notesText}
                 );
                 sock.send(notesCommand + "\r\n");
-            });
+            }
+            Reveal.addEventListener('slidechanged', propagateNotes);
             sock.onmessage = function (e) {
                 var message = JSON.parse(e.data);
                 switch (message.command) {
@@ -63,6 +70,12 @@
                         break;
                     case "PAUSE":
                         Reveal.togglePause();
+                        break;
+                    case "PREV":
+                        Reveal.prev();
+                        break;
+                    case "START":
+                        propagateNotes();
                         break;
                 }
             };
