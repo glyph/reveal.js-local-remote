@@ -16,35 +16,51 @@
                 background-color: black;
                 color: white;
                 font-family: "Menlo";
-                font-size: 36pt;
+                font-size: 25pt;
             }
             div .container {
                 overflow: hidden;
+                position: relative;
             }
-            div .controls {
-            }
-            div .prev {
+            div #prev {
+                background-color: gray;
                 float: left;
             }
-            div .next, div .start {
+            div #next, div #start {
                 float: right;
+                background-color: rgba(0,255,255,0.25);
+                width: 3em;
+                height: 50em;
+                color: cyan;
             }
-            div .prev, div .next, div.start {
-                background-color: #003399;
+            div #prev, div #next, div#start {
+                position: relative;
                 border-radius:15px;
                 -moz-border-radius: 15px;
                 -webkit-border-radius: 15px;
-                border: 2px solid #000033;
                 padding: 5px 10px;
+                z-index: 100;
+            }
+
+            div #prev:active, div #next:active, div#start:active {
+                background-color: rgba(0,0,255,0.5);
+            }
+
+            div #indicator {
+                width: 5em;
+                margin: auto;
+                background-color: green;
             }
             div .notes {
+                z-index: 1;
                 clear: both;
                 overflow-y: auto;
-                position: absolute;
+                position: fixed;
                 top: 2em;
                 left: 5px;
                 right: 5px;
                 bottom: 1em;
+                padding: 0 0.25em;
             }
 
             div .hidden {
@@ -53,6 +69,42 @@
         </style>
         <script>
             window.onload = function() {
+                var indicatorTimer = false;
+
+                // from http://stackoverflow.com/questions/1517924/javascript-mapping-touch-events-to-mouse-events
+                var touchHandler = function (event) {
+                    var touches = event.changedTouches,
+                        first = touches[0],
+                        type = "";
+
+                    switch(event.type) {
+                        case "touchstart": type = "mousedown"; break;
+                        case "touchend":   type="mouseup"; break;
+                        default: return;
+                    }
+
+                             //initMouseEvent(type, canBubble, cancelable, view, clickCount,
+                    //           screenX, screenY, clientX, clientY, ctrlKey,
+                    //           altKey, shiftKey, metaKey, button, relatedTarget);
+
+                    var simulatedEvent = document.createEvent("MouseEvent");
+                    simulatedEvent.initMouseEvent(type, true, true, window, 1,
+                                              first.screenX, first.screenY,
+                                              first.clientX, first.clientY, false,
+                                              false, false, false, 0/*left*/, null);
+
+                    first.target.dispatchEvent(simulatedEvent);
+                }
+
+                document.addEventListener('ACK', function(e) {
+                    if (indicatorTimer !== false)
+                        clearTimeout(indicatorTimer)
+                    document.getElementById("indicator").className = "";
+                    indicatorTimer = setTimeout(function() {
+                        document.getElementById("indicator").className = "hidden";
+                    }, 100);
+                }, false);
+
                 document.getElementById("prev").onclick = function() {
                     LocalRemote.broadcastObject({command: "PREV"});
                 };
@@ -67,18 +119,20 @@
                     document.getElementById("start").className = "hidden";
                     LocalRemote.broadcastObject({command: "START"});
                 }
-            }
 
+                document.body.addEventListener('touchstart', touchHandler, true);
+                document.body.addEventListener('touchend', touchHandler, true);
+            }
         </script>
     </head>
 
     <body>
         <div class="container">
-            <div class="controls">
-                <div class="prev hidden" id="prev">PREV</div>
-                <div class="next hidden" id="next">NEXT</div>
-                <div class="start" id="start">START</div>
-            </div>
+            <div class="hidden" id="prev">PREV</div>
+            <div class="hidden" id="next">NEXT</div>
+            <div id="start">START</div>
+            <div id="indicator" class="hidden">&nbsp;</div>
+
             <div class="notes" id="notes">
                 Remote.
             </div>

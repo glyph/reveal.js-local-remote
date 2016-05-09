@@ -13,6 +13,8 @@ var LocalRemote = (function() {
         console.log(message);
         if (message.command == 'NOTES') {
             document.getElementById("notes").innerHTML = message.notes;
+        } else if (message.command == 'ACK') {
+            document.dispatchEvent(new CustomEvent("ACK", {}));
         }
     };
 
