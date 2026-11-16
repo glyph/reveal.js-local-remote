@@ -45,3 +45,7 @@ Touch control does not work in this view, but at the top of the page there are p
 
 ## Advice
 Oh and for goodness sake *remember to press `f` on your presentation browser*, there is nothing more annoying than staring at the browser chrome at the top of the screen for an entire talk.
+
+## AI Policy
+
+reveal.js-local-remote follows the [Twisted AI Policy](https://docs.twisted.org/en/latest/development/ai-policy.html). This means this project does not allow the inclusion of the outputs of generative AI tools.
